@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Top Hat Watcher — Settings</title>
+  <title>Top Hat Watcher</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -24,59 +24,45 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 420px;
+      width: 300px;
+      padding: 1.25rem;
     }
 
     .header {
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
     }
 
-    .header .label {
+    .label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
     }
 
-    .header h1 {
+    h1 {
       font-family: 'Space Mono', monospace;
-      font-size: 1.4rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--text);
       line-height: 1.3;
     }
 
-    .header p {
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
-      color: var(--muted);
-      font-weight: 300;
-    }
-
     .card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 1rem;
     }
 
     .toggle-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 1.5rem;
+      padding: 1rem 1.1rem;
       border-bottom: 1px solid var(--border);
       transition: background 0.15s;
     }
@@ -92,26 +78,25 @@
     .toggle-info {
       display: flex;
       flex-direction: column;
-      gap: 0.2rem;
+      gap: 0.15rem;
     }
 
     .toggle-title {
-      font-size: 0.95rem;
+      font-size: 0.875rem;
       font-weight: 500;
       color: var(--text);
     }
 
     .toggle-desc {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       color: var(--muted);
       font-weight: 300;
     }
 
-    /* Toggle switch */
     .switch {
       position: relative;
-      width: 48px;
-      height: 26px;
+      width: 44px;
+      height: 24px;
       flex-shrink: 0;
     }
 
@@ -134,8 +119,8 @@
     .slider::before {
       content: '';
       position: absolute;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       left: 4px;
       top: 4px;
       background: white;
@@ -148,13 +133,13 @@
     }
 
     input:checked + .slider::before {
-      transform: translateX(22px);
+      transform: translateX(20px);
     }
 
     .status {
-      margin-top: 1.5rem;
+      margin-top: 0.85rem;
       font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 0.1em;
       color: var(--muted);
       text-align: center;
@@ -169,39 +154,36 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="label">Extension Settings</div>
-      <h1>Top Hat<br/>Question Watcher</h1>
-      <p>Configure how you're alerted when a new question is posted.</p>
-    </div>
-
-    <div class="card">
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <span class="toggle-title">Sound Alert</span>
-          <span class="toggle-desc">Play a sound when a question appears</span>
-        </div>
-        <label class="switch">
-          <input type="checkbox" id="soundToggle" checked />
-          <span class="slider"></span>
-        </label>
-      </div>
-
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <span class="toggle-title">Popup Notification</span>
-          <span class="toggle-desc">Show an OS notification with the question text</span>
-        </div>
-        <label class="switch">
-          <input type="checkbox" id="popupToggle" checked />
-          <span class="slider"></span>
-        </label>
-      </div>
-    </div>
-
-    <div class="status" id="status">SETTINGS SAVED</div>
+  <div class="header">
+    <div class="label">Active on tophat.com</div>
+    <h1>Top Hat Question Watcher</h1>
   </div>
+
+  <div class="card">
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-title">Sound Alert</span>
+        <span class="toggle-desc">Play a sound when a question appears</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="soundToggle" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <span class="toggle-title">Popup Notification</span>
+        <span class="toggle-desc">Show an OS notification with the question</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="popupToggle" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="status" id="status">SETTINGS SAVED</div>
 
   <script>
     const soundToggle = document.getElementById('soundToggle');
