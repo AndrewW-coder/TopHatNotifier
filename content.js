@@ -2,7 +2,7 @@ let lastQuestionText = null;
 function getCurrentQuestion() {
     // 🔍 YOU MUST UPDATE THIS SELECTOR
     // Inspect Top Hat and replace with the actual class/id
-    const el = document.querySelector(".question, .question-text, [data-testid='question']");
+    const el = document.querySelector(".question, .question-text, [data-testid='question'], .BaseQuestionHeaderstyles__HeaderWrapper-sc-1419q8j-0 ihWKHo StudentQuestionHeaderstyles__StyledBaseQuestionHeader-sc-8l3mag-0 liJRRb");
     return el ? el.innerText.trim() : null;
 }
 function checkForNewQuestion() {
