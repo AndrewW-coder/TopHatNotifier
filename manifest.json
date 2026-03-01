@@ -20,7 +20,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["alert.mp3", "offscreen.html"],
+      "resources": ["Notification.mp3", "offscreen.html"],
       "matches": ["<all_urls>"]
     }
   ]
