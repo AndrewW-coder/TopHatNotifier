@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "Top Hat Question Watcher",
+    "version": "1.0",
+    "description": "Detects when a new Top Hat question appears.",
+    "permissions": ["notifications", "tabs", "scripting", "storage", "offscreen"],
+    "host_permissions": ["*://*.tophat.com/*"],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+        "matches": ["*://*.tophat.com/*"],
+        "js": ["content.js"]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+        "resources": ["alert.mp3", "offscreen.html"],
+        "matches": ["<all_urls>"]
+        }
+    ]
+}
