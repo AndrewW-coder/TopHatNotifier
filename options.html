@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top Hat Watcher — Settings</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --border: #2e2e2e;
+      --accent: #f5c518;
+      --text: #e8e8e8;
+      --muted: #666;
+      --on: #4ade80;
+      --off: #444;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .header {
+      margin-bottom: 2.5rem;
+    }
+
+    .header .label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .header h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .header p {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .toggle-row:last-child {
+      border-bottom: none;
+    }
+
+    .toggle-row:hover {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .toggle-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .toggle-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .toggle-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* Toggle switch */
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: var(--off);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 4px;
+      top: 4px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    input:checked + .slider {
+      background: var(--on);
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(22px);
+    }
+
+    .status {
+      margin-top: 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .status.visible {
+      opacity: 1;
+      color: var(--on);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="label">Extension Settings</div>
+      <h1>Top Hat<br/>Question Watcher</h1>
+      <p>Configure how you're alerted when a new question is posted.</p>
+    </div>
+
+    <div class="card">
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <span class="toggle-title">Sound Alert</span>
+          <span class="toggle-desc">Play a sound when a question appears</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="soundToggle" checked />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <span class="toggle-title">Popup Notification</span>
+          <span class="toggle-desc">Show an OS notification with the question text</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="popupToggle" checked />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="status" id="status">SETTINGS SAVED</div>
+  </div>
+
+  <script>
+    const soundToggle = document.getElementById('soundToggle');
+    const popupToggle = document.getElementById('popupToggle');
+    const status = document.getElementById('status');
+
+    // Load saved settings
+    chrome.storage.sync.get({ soundEnabled: true, popupEnabled: true }, (settings) => {
+      soundToggle.checked = settings.soundEnabled;
+      popupToggle.checked = settings.popupEnabled;
+    });
+
+    function save() {
+      chrome.storage.sync.set({
+        soundEnabled: soundToggle.checked,
+        popupEnabled: popupToggle.checked
+      }, () => {
+        status.classList.add('visible');
+        setTimeout(() => status.classList.remove('visible'), 1500);
+      });
+    }
+
+    soundToggle.addEventListener('change', save);
+    popupToggle.addEventListener('change', save);
+  </script>
+</body>
+</html>
