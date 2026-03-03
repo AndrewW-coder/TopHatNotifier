@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener((message) => {
                 if (settings.popupEnabled) {
                     chrome.notifications.create({
                         type: "basic",
-                        iconUrl: "https://via.placeholder.com/128",
+                        iconUrl: chrome.runtime.getURL("icon.png"),
                         title: "New Top Hat Question!",
                         message: message.text.substring(0, 100),
                         priority: 2,

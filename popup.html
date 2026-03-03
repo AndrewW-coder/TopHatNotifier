@@ -10,14 +10,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f0f0f;
-      --card: #1a1a1a;
-      --border: #2e2e2e;
-      --accent: #f5c518;
-      --text: #e8e8e8;
-      --muted: #666;
-      --on: #4ade80;
-      --off: #444;
+      /* Top Hat themed colors */
+      --bg: #ffffff;
+      --card: #f8f8f8;
+      --border: #cccccc;
+      --accent-red: #c41230;
+      --accent-purple: #6e3b8a;
+      --text: #333333;
+      --muted: #777777;
+      --on: var(--accent-red);
+      --off: #dddddd;
     }
 
     body {
@@ -39,7 +41,7 @@
       font-size: 0.6rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-purple);
       margin-bottom: 0.3rem;
     }
 
@@ -47,7 +49,7 @@
       font-family: 'Space Mono', monospace;
       font-size: 0.95rem;
       font-weight: 700;
-      color: var(--text);
+      color: var(--accent-purple);
       line-height: 1.3;
     }
 
@@ -174,7 +176,7 @@
     <div class="toggle-row">
       <div class="toggle-info">
         <span class="toggle-title">Popup Notification</span>
-        <span class="toggle-desc">Show an OS notification with the question</span>
+        <span class="toggle-desc">Show an OS notification when a question appears</span>
       </div>
       <label class="switch">
         <input type="checkbox" id="popupToggle" checked />
