@@ -63,8 +63,10 @@ function scanForNewQuestions() {
 setTimeout(checkForNewQuestion, 2000);
 
 // Observe DOM changes
+let scanTimer = null;
 const observer = new MutationObserver(() => {
-    checkForNewQuestion();
+  clearTimeout(scanTimer);
+  scanTimer = setTimeout(scanForNewQuestions, 200);
 });
 observer.observe(document.body, {
     childList: true,
