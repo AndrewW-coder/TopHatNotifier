@@ -3,6 +3,39 @@ window.__fakeQuestion = function (text = "test question") {
   chrome.runtime.sendMessage({ type: "NEW_QUESTION", text });
 };
 
+const seenQuestionIds = new Set();
+let initialized = false;
+
+function getQuestionListItems() {
+  const labels = Array.from(document.querySelectorAll('span[id^="label-item-"]'));
+  if (labels.length === 0) return [];
+
+  return labels
+    .map((label) => {
+      const m = label.id.match(/^label-item-(\d+)/);
+      if (!m) return null;
+
+      const id = m[1];
+      const raw = (label.textContent || "").trim();
+      const parts = raw.split(",").map((s) => s.trim());
+
+      const kind = (parts[0] || "").toLowerCase(); // "question"
+      if (kind !== "question") return null;
+
+      const title = parts[1] || "";
+      const openClosed = parts[2] || "";
+      const answeredState = parts[3] || "";
+
+      const row = label.closest("li") || label.closest('[role="button"]') || label.parentElement;
+      const isBlocked = row ? !!row.querySelector('[data-testid="BlockIcon"]') : false;
+
+      const isUnanswered = /unanswered/i.test(answeredState);
+
+      return { id, title, openClosed, answeredState, isUnanswered, isBlocked, raw };
+    })
+    .filter(Boolean);
+}
+
 //NEW GETCURRENTQUESTION FUNCTION: FALSE POSITIVES AND NEGATIVES
 
 //   // Family A: student preview / section header
