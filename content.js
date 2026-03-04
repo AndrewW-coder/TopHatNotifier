@@ -68,7 +68,7 @@ const observer = new MutationObserver(() => {
   clearTimeout(scanTimer);
   scanTimer = setTimeout(scanForNewQuestions, 200);
 });
-observer.observe(document.body, {
+observer.observe(document.documentElement, {
     childList: true,
     subtree: true
 });
