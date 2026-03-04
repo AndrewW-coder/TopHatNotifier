@@ -36,47 +36,27 @@ function getQuestionListItems() {
     .filter(Boolean);
 }
 
-//NEW GETCURRENTQUESTION FUNCTION: FALSE POSITIVES AND NEGATIVES
+function scanForNewQuestions() {
+  const items = getQuestionListItems();
+  if (items.length === 0) return;
 
-//   // Family A: student preview / section header
-//   const a =
-//     document.querySelector('[data-click-id="student question preview title"] h1') ||
-//     document.querySelector('[data-click-id="student question preview title"]') ||
-//     document.querySelector('[data-hotkey-id="section-header"] h1') ||
-//     document.querySelector('[data-hotkey-id="section-header"]');
+  for (const item of items) {
+    const firstTime = !seenQuestionIds.has(item.id);
+    if (firstTime) {
+      seenQuestionIds.add(item.id);
 
-//   if (a) {
-//     const txt = a.innerText.trim();
-//     if (txt) return txt;
-//   }
+      if (!initialized) continue;
 
-//   // Family B: question header with QuestionIcon
-//   const icon = document.querySelector('[data-testid="QuestionIcon"]');
-//   if (icon) {
-//     const container = icon.closest('div');
-//     if (container) {
-//       const h1 = container.parentElement?.querySelector('h1');
-//       const txt = h1?.innerText?.trim();
-//       if (txt) return txt;
-//     }
-//   }
-
-//   // Fallback: any visible heading level 1/2 near the top
-//   const fallback = document.querySelector('h1, [role="heading"][aria-level="2"]');
-//   return fallback ? fallback.innerText.trim() : null;
-// }
-
-
-
-function checkForNewQuestion() {
-    const current = getCurrentQuestion();
-    if (current && current !== lastQuestionText) {
-        lastQuestionText = current;
+      if (item.isUnanswered && !item.isBlocked) {
         chrome.runtime.sendMessage({
-            type: "NEW_QUESTION",
-            text: current
+          type: "NEW_QUESTION",
+          text: item.title || "New question"
         });
+      }
     }
+  }
+
+  initialized = true;
 }
 
 // Run once initially
