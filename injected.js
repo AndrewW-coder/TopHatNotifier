@@ -52,8 +52,4 @@
     } else {
         document.addEventListener('DOMContentLoaded', startObserving);
     }
-
-    window.__fakeQuestion = function (text = 'test question') {
-        maybeDispatch(text, '__test__' + Date.now());
-    };
 })();
