@@ -6,7 +6,6 @@ chrome.runtime.onMessage.addListener((message) => {
             { soundEnabled: true, popupEnabled: true },
             (settings) => {
                 if (settings.popupEnabled) {
-                    console.log('[TopHat] Creating notification with text:', message.text.substring(0, 100));
                     chrome.notifications.create({
                         type: "basic",
                         iconUrl: chrome.runtime.getURL("icon.png"),

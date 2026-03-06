@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // window.__fakeQuestion = function(text = 'test question') { //FIXME TESTING
 //     chrome.runtime.sendMessage({ type: 'NEW_QUESTION', text }); //FIXME TESTING
 // }; //FIXME TESTING
