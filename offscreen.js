@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener((message) => {
 
         // Close the offscreen doc after sound finishes to free resources
         audio.addEventListener("ended", () => {
-        chrome.offscreen.closeDocument();
+            chrome.offscreen.closeDocument();
         });
     }
 });
