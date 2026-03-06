@@ -1,6 +1,6 @@
 chrome.runtime.onMessage.addListener((message) => {
     if (message.type === "PLAY_SOUND") {
-        const audio = new Audio(chrome.runtime.getURL("alert.mp3"));
+        const audio = new Audio(chrome.runtime.getURL("Notification.mp3"));
         audio.volume = 1.0;
         audio.play().catch(console.error);
 
