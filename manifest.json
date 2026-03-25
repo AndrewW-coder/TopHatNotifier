@@ -3,7 +3,7 @@
   "name": "Top Hat Question Watcher",
   "version": "1.0",
   "description": "Detects when a new Top Hat question appears.",
-  "permissions": ["notifications", "tabs", "scripting", "storage", "offscreen", "background"],
+  "permissions": ["notifications", "storage", "offscreen"],
   "host_permissions": ["*://*.tophat.com/*"],
   "background": {
     "service_worker": "background.js"

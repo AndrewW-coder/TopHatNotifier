@@ -1,6 +1,6 @@
 const soundToggle = document.getElementById('soundToggle');
 const popupToggle = document.getElementById('popupToggle');
-const status = document.getElementById('status');
+const sttus = document.getElementById('status');
 
 chrome.storage.sync.get({ soundEnabled: true, popupEnabled: true }, (settings) => {
     soundToggle.checked = settings.soundEnabled;
